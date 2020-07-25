@@ -1,0 +1,216 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Todos/AddTodo.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">My React components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Home</a></h2><div class="category"></div><div class="category"><h2>Context</h2><h3>Store</h3><ul><li><a href="store.html">store</a></li></ul><h3>Components</h3><ul><li><a href="StateProvider.html">StateProvider</a></li></ul></div><div class="category"><h2>Pagination</h2><h3>Reducers</h3><ul><li><a href="module-Pagination_ducks_reducer.html">Pagination/ducks/reducer</a></li></ul><h3>Components</h3><ul><li><a href="Pagination.html">Pagination</a></li></ul></div><div class="category"><h2>Todos</h2><h3>Operations</h3><ul><li><a href="module-Todos_ducks_operations.html">Todos/ducks/operations</a></li></ul><h3>Reducers</h3><ul><li><a href="module-Todos_ducks_reducer.html">Todos/ducks/reducer</a></li></ul><h3>Components</h3><ul><li><a href="AddTodo.html">AddTodo</a></li><li><a href="TodoList.html">TodoList</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>Todos/AddTodo.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useState, useContext} from 'react';
+import todoOperations from "./ducks/operations";
+import { contextObject } from "../Context/Store";
+/**
+ * @namespace AddTodo
+ * @category Todos
+ * @component
+ * @hideconstructor
+ * @classDesc  
+ * AddTodo Component.
+ * Renders AddTodo form
+ * 
+ */
+const AddTodo = () => {
+  var a=0;
+  /**
+   * State update function returned by useState hook. Updates the state {@link http://127.0.0.1:5500/client/docs/TodoList.html#~elements state}
+   * @function updateState
+   * @memberof AddTodo
+   * @inner
+   */
+   /**
+   * State object returned by useState hook. Updated by {@link http://127.0.0.1:5500/client/docs/TodoList.html#~updateElement updateElement} function returned by useState hook.
+   * Used for controlling the title and description elements.
+   * @member state {{title : string, description : string}}
+   * @memberof AddTodo
+   * @inner
+   */
+    const [state, updateState] = useState({ title: "", description: "" });
+    /**
+   * [state,dispatch]
+   * 
+   * Returned by context object. This is an array of 2 elements i.e. state &amp; dispatch returned by useReducer and added to context object.
+   * Array consists of the todoList i.e. the state and dispatch method for updating the 
+   * todolist on user actions like edit &amp; delete.
+   * @member todos {Array}
+   * @memberof AddTodo
+   * @inner
+   */
+    const { todos } = useContext(contextObject);
+    const [todoList, dispatch] = todos;
+    /**
+   * Updates the state object {@link http://127.0.0.1:5500/client/docs/TodoList.html#~elements state} with the typed title in the AddTodo form
+   * @memberof AddTodo
+   * @inner
+   */
+    const handleTitle = (e) => {
+        const value = e.target.value;
+        updateState((prevState) => ({ ...prevState, title: value }));
+      };
+      /**
+   * Updates the state object {@link http://127.0.0.1:5500/client/docs/TodoList.html#~elements state} with the typed description in the AddTodo form
+   * @memberof AddTodo
+   * @inner
+   */
+      const handleDescription = (e) => {
+        const value = e.target.value;
+        updateState((prevState) => ({ ...prevState, description: value }));
+      };
+    return (
+      &lt;div style={{display:'flex',justifyContent:'center'}}>
+        &lt;div className="card w-75">
+        &lt;div className="card-body">
+          &lt;form id="todoform">
+          &lt;input
+            type="text"
+            value={state.title}
+            onChange={handleTitle}
+            className="form-control"
+            placeholder="To-Do Title"
+          >&lt;/input>
+          &lt;br />
+          &lt;textarea
+            type="text"
+            value={state.description}
+            onChange={handleDescription}
+            className="form-control"
+            placeholder="To-Do Description"
+          >&lt;/textarea>
+          &lt;br />
+          &lt;button
+            className="btn btn-primary"
+            onClick={async (e) => {
+              e.preventDefault();
+              updateState((prevState) => ({...prevState, title:'',description:''}));
+              await todoOperations.addItem(state, dispatch);
+            }}
+          >
+            Add To-Do Item
+          &lt;/button>
+          &lt;/form>
+        &lt;/div>
+      &lt;/div>
+      &lt;/div>
+    )
+}
+export default AddTodo;</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

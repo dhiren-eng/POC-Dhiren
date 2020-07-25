@@ -1,0 +1,349 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Todos/TodoList.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">My React components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Home</a></h2><div class="category"></div><div class="category"><h2>Context</h2><h3>Store</h3><ul><li><a href="store.html">store</a></li></ul><h3>Components</h3><ul><li><a href="StateProvider.html">StateProvider</a></li></ul></div><div class="category"><h2>Pagination</h2><h3>Reducers</h3><ul><li><a href="module-Pagination_ducks_reducer.html">Pagination/ducks/reducer</a></li></ul><h3>Components</h3><ul><li><a href="Pagination.html">Pagination</a></li></ul></div><div class="category"><h2>Todos</h2><h3>Operations</h3><ul><li><a href="module-Todos_ducks_operations.html">Todos/ducks/operations</a></li></ul><h3>Reducers</h3><ul><li><a href="module-Todos_ducks_reducer.html">Todos/ducks/reducer</a></li></ul><h3>Components</h3><ul><li><a href="AddTodo.html">AddTodo</a></li><li><a href="TodoList.html">TodoList</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>Todos/TodoList.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useState, useEffect, useContext } from "react";
+import { contextObject } from "../Context/Store";
+import todoOperations from "./ducks/operations";
+import AddTodo from './AddTodo';
+import Pagination from '../Pagination';
+/**
+ * @category Todos
+ * @component
+ * @hideconstructor
+ * @classDesc 
+ * TodoList Component.
+ * Displays list of todo items and an add todo form
+ * 
+ */
+const TodoList = () => {
+  console.log('TodoList');
+  /**
+   * State update function returned by useState hook. Updates the state {@link http://127.0.0.1:5500/client/docs/TodoList.html#~elements elements}
+   * @function updateElement
+   * @memberof TodoList
+   * @inner
+   */
+  /**
+   * State object returned by useState hook. Updated by {@link http://127.0.0.1:5500/client/docs/TodoList.html#~updateElement updateElement} function returned by useState hook.
+   * The TodoList from central store is loaded here &amp; is used during data edit. The data here changes
+   * as the user edits a todo. Used for controlling the elements.
+   * @member elements {Object}
+   * @memberof TodoList
+   * @inner
+   */
+  const [elements, updateElement] = useState({});
+  /**
+   * [state,dispatch]
+   * 
+   * Returned by context object. This is an array of 2 elements i.e. state &amp; dispatch returned by useReducer and added to context object.
+   * Array consists of the activePageNumber i.e. the state used in pagination and dispatch method for updating the page number i.e. state
+   * on clicking any of the paginator numbers.
+   * @member activeNumber {Array}
+   * @memberof TodoList
+   * @inner
+   */
+  const { activeNumber } = useContext(contextObject);
+  const [activePageNumber, dispatch1] = activeNumber;
+  /**
+   * [state,dispatch]
+   * 
+   * Returned by context object. This is an array of 2 elements i.e. state &amp; dispatch returned by useReducer and added to context object.
+   * Array consists of the todoList i.e. the state and dispatch method for updating the 
+   * todolist on user actions like edit &amp; delete.
+   * @member todos {Array}
+   * @memberof TodoList
+   * @inner
+   */
+  const { todos } = useContext(contextObject);
+  const [todoList, dispatch] = todos;
+  
+  /**
+   * Returns array of elements for particular index of paginator
+   * @param {number} activePageNumber The page number which is currently selected
+   * @returns {Array}  
+   */
+  const displayList = (activePageNumber) => {
+    if(((activePageNumber-1)*5)+5 &lt;= todoList.length){
+      return todoList.slice((activePageNumber-1)*5, ((activePageNumber-1)*5)+5);
+    }
+    
+    else{
+      return todoList.slice((activePageNumber-1)*5, todoList.length);
+    }
+    
+  }
+  const newTodoList = displayList(activePageNumber);
+  /**
+   * useEffect to fetch todolist after 1st render
+   * @method useEffect[dispatch]
+   * @memberof TodoList
+   * @inner
+   */
+  useEffect(() => {
+    const getItems = async () => {
+      await todoOperations.fetchItems(dispatch);
+    };
+    getItems();
+  }, [dispatch]);
+  /**
+   * useEffect for populating the state {@link http://127.0.0.1:5500/client/docs/TodoList.html#~elements elements} which controls the textboxes while editing.
+   * @method useEffect[todoList]
+   * @memberof TodoList
+   * @inner
+   */
+  useEffect(() => {
+    updateElement(() => ({}));
+    todoList.forEach((element) => {
+      updateElement((prevState) => ({
+        ...prevState,
+        [element._id]: { ...element, flag: 0 },
+      }));
+    });
+  }, [todoList.length]);
+  /**
+   * Event handler for editing title
+   * @param {string} id  
+   */
+  const handleTitleEdit = (e, id) => {
+    const value = e.target.value;
+    updateElement((prevState) => ({
+      ...prevState,
+      [id]: { ...prevState[id], title: value },
+    }));
+  };
+  /**
+   * Event handler for editing description
+   * @param {string} id  
+   */
+  const handleDescriptionEdit = (e, id) => {
+    const value = e.target.value;
+    updateElement((prevState) => ({
+      ...prevState,
+      [id]: { ...prevState[id], description: value },
+    }));
+  };
+  return (
+    &lt;div className="container-fluid p-3">
+      &lt;h1>&lt;u style={{ textDecorationSkipInk: 'none', display: 'flex', justifyContent: 'center' }}>To-Do List&lt;/u>&lt;/h1>&lt;br/>
+      &lt;ul>
+        {newTodoList.map((element) => {
+          return (
+            &lt;li data-testid='todoItem' style={{display: 'flex', justifyContent: 'center'}}>
+              &lt;div className="card p-3 w-50">
+                &lt;div className="card-body">
+                  &lt;div className="row">
+                    &lt;div className="col-sm-8">
+                    &lt;b>Title &amp;emsp;&amp;emsp;&amp;emsp;&amp;emsp;&amp;nbsp;:&amp;emsp;&amp;nbsp; &lt;/b>
+                        {Object.keys(elements).length != todoList.length ? (
+                          element.title
+                        ) : elements[element._id].flag === 0 ? (
+                          element.title
+                        ) : (
+                          &lt;input
+                            type="text" className="form-control w-50 d-inline-flex"
+                            data-testid="editTextBox"
+                            value={elements[element._id].title}
+                            onChange={(e) => {
+                              handleTitleEdit(e, element._id);
+                            }}
+                          />
+                        )}{" "}
+                      &lt;br />
+                      &lt;b>Description &amp;emsp;:&amp;emsp;&lt;/b> {'  '}
+                      
+                        {Object.keys(elements).length != todoList.length ? (
+                          element.description
+                        ) : elements[element._id].flag === 0 ? (
+                          element.description
+                        ) : (
+                          &lt;textarea
+                            data-testid="editDescriptionBox" className="form-control w-50 d-inline"
+                            value={elements[element._id].description}
+                            onChange={(e) => {
+                              handleDescriptionEdit(e, element._id);
+                            }} style={{verticalAlign:'top'}}
+                          />
+                        )}{" "}
+                    &lt;/div>
+                    &lt;div className="column" style={{marginLeft : 'auto'}}>
+                      {Object.keys(elements).length != todoList.length ? (
+                        &lt;b>Null&lt;/b>
+                      ) : elements[element._id].flag === 1 ? (
+                        &lt;button className="btn btn-primary"
+                          href="#"
+                          onClick={async (e) => {
+                            await todoOperations.updateItem(
+                              dispatch,
+                              elements[element._id]
+                            );
+                            updateElement((prevState) => ({
+                              ...prevState,
+                              [element._id]: {
+                                ...prevState[element._id],
+                                flag: 0,
+                              },
+                            }));
+                          }}
+                        >
+                          Save 
+                        &lt;/button>
+                      ) : (
+                        &lt;div>
+                          &lt;a href="#" style={{textDecoration : 'none', fontSize: '25px', padding:'20px'}}
+                            className="fa fa-pencil"
+                            onClick={() => {
+                              updateElement((prevState) => ({
+                                ...prevState,
+                                [element._id]: {
+                                  ...prevState[element._id],
+                                  flag: 1,
+                                },
+                              }));
+                            }}
+                            data-testid="updateItem"
+                          />
+                          &lt;a href="#"
+                            className="fa fa-trash" style={{color:'maroon',textDecoration : 'none', fontSize: '25px'}}
+                            onClick={async () => {
+                              await todoOperations.deleteItem(
+                                dispatch,
+                                element._id
+                              );
+                            }}
+                            data-testid="deleteItem"
+                          />
+                        &lt;/div>
+                      )}
+                    &lt;/div>
+                  &lt;/div>
+                &lt;/div>
+              &lt;/div>
+            &lt;/li>
+          );
+        })}
+        
+      &lt;/ul>
+      &lt;br />
+      {todoList.length==0 ? '' : &lt;Pagination listCount={todoList.length}/>} &lt;br/>
+      &lt;AddTodo />
+    &lt;/div>
+  );
+};
+export default TodoList;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

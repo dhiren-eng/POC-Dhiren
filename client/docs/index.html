@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Home</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">My React components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Home</a></h2><div class="category"></div><div class="category"><h2>Context</h2><h3>Store</h3><ul><li><a href="store.html">store</a></li></ul><h3>Components</h3><ul><li><a href="StateProvider.html">StateProvider</a></li></ul></div><div class="category"><h2>Pagination</h2><h3>Reducers</h3><ul><li><a href="module-Pagination_ducks_reducer.html">Pagination/ducks/reducer</a></li></ul><h3>Components</h3><ul><li><a href="Pagination.html">Pagination</a></li></ul></div><div class="category"><h2>Todos</h2><h3>Operations</h3><ul><li><a href="module-Todos_ducks_operations.html">Todos/ducks/operations</a></li></ul><h3>Reducers</h3><ul><li><a href="module-Todos_ducks_reducer.html">Todos/ducks/reducer</a></li></ul><h3>Components</h3><ul><li><a href="AddTodo.html">AddTodo</a></li><li><a href="TodoList.html">TodoList</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p></p>
+                    <h1>Home</h1>
+                </header>
+                
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>POC</h1>
+<p>The project folder contains the client folder that holds the whole react application.</p>
+<h3>Starting the application</h3>
+<ol>
+<li>Goto mongodb.com . Under Software tab in navigation bar click &quot;Community Server&quot; . On the right side of newly opened page under available downloads. Select : Version 4.2.8, Platform Windows, Package msi and click download.</li>
+<li>Install mongodb. Mongodb part is done here.</li>
+<li>Open project folder and in terminal do npm install which will install dependamcies of backend.</li>
+<li>In terminal goto cd client which is the actual react application.</li>
+<li>Type npm install and click enter. The react application dependancies will install.</li>
+<li>Goto cd.. i.e. the main folder and type npm run dev. Both backend server and react application will start concurrently.Goto localhost:3000 to view the application.</li>
+</ol>
+<h4>Important : Just add todo items with a different title name for every todo. Suggested to use the application after adding more than 5 todo items.</h4>
+<h3>Starting the documentation</h3>
+<ol>
+<li>Goto client folder and type the command npm run doc . The docs folder will be created inside client folder.</li>
+<li>Open the &quot;docs&quot; folder and open index.html</li>
+<li>In index.html in empty area right-click and click &quot;Open with Live Sever&quot;. For this live server extension needs to be installed in VSCode . The application document will load !</li>
+</ol>
+<h3>Testing the react application</h3>
+<ol>
+<li>Goto client folder.</li>
+<li>Run npm test.</li>
+</ol>
+<p>In src the project code is divided into different folders i.e. Context, Pagination &amp; Todos representing different modules of the project.</p>
+<p>The homepage shows the TodoList component which is documented in <a href="http://127.0.0.1:5500/client/docs/TodoList.html">TodoList</a> component.</p></article>
+    </section>
+
+
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>

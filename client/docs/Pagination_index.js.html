@@ -1,0 +1,176 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> Pagination/index.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+             
+                <a href="index.html">
+                    <h1 class="navbar-item">My React components</h1>
+                </a>
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Home</a></h2><div class="category"></div><div class="category"><h2>Context</h2><h3>Store</h3><ul><li><a href="store.html">store</a></li></ul><h3>Components</h3><ul><li><a href="StateProvider.html">StateProvider</a></li></ul></div><div class="category"><h2>Pagination</h2><h3>Reducers</h3><ul><li><a href="module-Pagination_ducks_reducer.html">Pagination/ducks/reducer</a></li></ul><h3>Components</h3><ul><li><a href="Pagination.html">Pagination</a></li></ul></div><div class="category"><h2>Todos</h2><h3>Operations</h3><ul><li><a href="module-Todos_ducks_operations.html">Todos/ducks/operations</a></li></ul><h3>Reducers</h3><ul><li><a href="module-Todos_ducks_reducer.html">Todos/ducks/reducer</a></li></ul><h3>Components</h3><ul><li><a href="AddTodo.html">AddTodo</a></li><li><a href="TodoList.html">TodoList</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>Pagination/index.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useContext} from 'react';
+import {contextObject} from '../Context/Store';
+import PropTypes from 'prop-types';
+/**
+ * @category Pagination
+ * @component
+ * @hideconstructor
+ * @classDesc
+ * Pagination Component
+ */
+const Pagination = (props) => {
+    /**
+   * [state,dispatch]
+   * 
+   * Returned by context object. This is an array of 2 elements i.e. state &amp; dispatch returned by useReducer and added to context object.
+   * Array consists of the activePageNumber i.e. the state used in pagination and dispatch method for updating the page number i.e. state
+   * on clicking any of the paginator numbers.
+   * @member activeNumber {Array}
+   * @memberof Pagination
+   * @inner
+   */
+    const { activeNumber } = useContext(contextObject);
+    const [activePageNumber, dispatch1] = activeNumber;
+    console.log(activePageNumber);
+    /**
+     * Displays the paginator i.e. the list of numbers as buttons according to the number of items in todoList
+     * @returns {Array} JSX of array of pagenumber buttons wrapped in li
+     */
+    const showPageButtons = () => {
+        var arr = [];
+        for(var i=0; i&lt;Math.ceil(props.listCount/5) ; i++){
+            arr.push(&lt;li key={i+1} className={`page-item ${activePageNumber==i+1 ? 'active' : ''}`} >&lt;button className="page-link" key={i+1} onClick={(e) => {
+                e.preventDefault();
+                dispatch1({type : 'UPDATE_PAGENUMBER', payload : e.target.innerText});
+            }}>{i+1}&lt;/button>&lt;/li>);
+                }
+                return arr;
+    }
+    return (
+        &lt;nav className="container-fluid d-flex" style={{justifyContent : 'center'}}>
+        &lt;ul className="pagination" >
+        &lt;li className="page-item">&lt;button className="page-link">Previous&lt;/button>&lt;/li>
+            {
+                showPageButtons()
+            }
+            &lt;li className="page-item">&lt;button className="page-link">Next&lt;/button>&lt;/li>
+        &lt;/ul>
+      &lt;/nav>
+    )
+}
+Pagination.propTypes = {
+    /**
+     * Count of list elements to determine no. of indices in Pagination
+     */
+    listCount : PropTypes.number.isRequired
+}
+export default Pagination;</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.4</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+</body>
+</html>
