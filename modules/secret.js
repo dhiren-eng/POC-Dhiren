@@ -1,4 +1,4 @@
 module.exports = {
-  secret: "Only reasonable bulk orders website",
-  secretAdm: "Teesexpress managed by Admin",
+  secret: "Nothing",
+  secretAdm: "Managed by Admin",
 };
