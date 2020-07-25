@@ -1,6 +1,6 @@
 # POC
 
-The project folder contains the client folder that holds the whole react application.
+The project folder contains the "client" subfolder that holds the whole react application.
 
 ### Starting the application
 
@@ -26,4 +26,4 @@ The project folder contains the client folder that holds the whole react applica
 
 In src the project code is divided into different folders i.e. Context, Pagination & Todos representing different modules of the project.
 
-The homepage shows the TodoList component which is documented in [TodoList](http://127.0.0.1:5500/client/docs/TodoList.html) component.
+The homepage shows the TodoList component.
